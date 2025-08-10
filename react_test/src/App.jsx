@@ -6,7 +6,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import JavaPage from './JavaPage';
 import CPage from './CPage';
 import PyPage from './PyPage';
-import History from './history'; //needs to be History before prod
+import History from './History'; //needs to be History before prod
 import GettingStarted from './GettingStarted';
 import ProtectedRoute from './ProtectedRoutes';
 import LoadingScreen from './LoadingScreen';
