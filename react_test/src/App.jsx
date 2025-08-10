@@ -9,7 +9,7 @@ import PyPage from './PyPage';
 import History from './History'; //needs to be History before prod
 import GettingStarted from './GettingStarted';
 import ProtectedRoute from './ProtectedRoutes';
-import LoadingScreen from './LoadingScreen';
+import LoadingScreen from './LoadingScreen'; // fix this import later
 function App() {
   const [user, setUser] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
