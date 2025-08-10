@@ -2,8 +2,29 @@
 body{
     font-family: "Rubik", sans-serif; 
     font-size: 1.5em;
+    background-color: black;
+    color: white;
 }
 
 h1{
     text-align: center;
+}
+
+#mainlangselect{    
+    size: 3em;
+    text-align: center;
+
+}
+#Java:hover{
+    color:orange;
+    background-color: blue;
+
+}
+#C:hover{
+    color:purple;
+    background-color: crimson;
+}
+#Python:hover{
+    color:blue;
+    background-color: yellow;
 }
