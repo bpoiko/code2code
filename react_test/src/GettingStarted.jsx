@@ -1,3 +1,4 @@
+
 function GettingStarted() {
   return (
     <div className="getting-started">
@@ -6,13 +7,23 @@ function GettingStarted() {
         <h1>You'll also need an IDE, I am personally liking VSCode as of recently but feel free to use what you have</h1>
       <section>
         <h2>🟨 Java</h2>
-        <pre>
+        <pre> 
+          <code className="language-java">
 {`public class HelloWorld {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
   }
 }`}
+</code>
         </pre>
+        <h2>While Loop</h2>
+        <pre>
+{`while(x < 5){
+    print(x);
+    x++;   
+        }`}
+        </pre>
+
       </section>
 
       <section>
