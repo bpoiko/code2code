@@ -8,15 +8,22 @@ import CPage from './CPage';
 import PyPage from './PyPage';
 import History from './history'; //needs to be History before prod
 import GettingStarted from './GettingStarted';
+import ProtectedRoute from './ProtectedRoutes';
+import LoadingScreen from './LoadingScreen';
 function App() {
   const [user, setUser] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
+   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((u) => setUser(u));
-    return () => unsubscribe();
-  }, []);
+  const unsubscribe = auth.onAuthStateChanged((u) => {
+    setUser(u);
+    setLoading(false); // we great
+  });
+
+  return () => unsubscribe();
+}, []);
 
   const logout = () => {
     auth.signOut();
@@ -46,10 +53,39 @@ function App() {
 
             <div className="challenge-section">
               <Routes>
-                <Route path="/java" element={<JavaPage />} />
-                <Route path="/cpp" element={<CPage />} />
-                <Route path="/python" element={<PyPage />} />
-                <Route path="/history" element={<History />} />
+                <Route 
+                path="/java" 
+                element={
+                <ProtectedRoute>
+                <JavaPage />
+                </ProtectedRoute>
+
+                }
+                />
+                <Route 
+                path="/cpp" 
+                element={
+                  <ProtectedRoute>
+                  <CPage />
+                  </ProtectedRoute>
+                }
+                />
+                <Route 
+                path="/python" 
+                element={
+                  <ProtectedRoute>
+                  <PyPage /> 
+                  </ProtectedRoute>
+                }
+                />
+                <Route 
+                path="/history" 
+                  element={
+                  <ProtectedRoute>
+                  <History />
+                  </ProtectedRoute>
+                  }
+                  />
                 <Route path="/getting-started" element={<GettingStarted />} />
               </Routes>
             </div>
