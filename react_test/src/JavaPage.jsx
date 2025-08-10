@@ -1,9 +1,23 @@
 import { useEffect, useState } from 'react';
-
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 function JavaPage() {
   const [question, setQuestion] = useState('');
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState('easy'); // super cool stuff here
+const saveChallenge = async (questionText) => {
+  try {
+    await addDoc(collection(db, 'challenges'), {
+      question: questionText,
+      language: 'Java',
+      difficulty: difficulty,
+      createdAt: serverTimestamp()
+    });
+    console.log('🔥 Challenge saved to Firestore');
+  } catch (err) {
+    console.error('❌ Failed to save to Firestore:', err);
+  }
+};
 
   const fetchChallenge = async () => {
     setLoading(true);
@@ -15,7 +29,12 @@ function JavaPage() {
       });
 
       const data = await res.json();
-      setQuestion(data.question);
+      if(data.question){
+        setQuestion(data.question);
+        await saveChallenge(data.question);
+      }else{
+        console.log("Error no question from backend");
+      }
     } catch (err) {
       console.error('❌ Fetch failed:', err);
       setQuestion('Something went wrong...');
@@ -34,6 +53,7 @@ function JavaPage() {
 
       <div className="difficulty-controls">
         <label>Select Difficulty:</label>
+          <p>Small Disclaimer, these will not work until OpenAI frees up my keys</p>
         <select
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
@@ -51,6 +71,11 @@ function JavaPage() {
       )}
 
       <button onClick={fetchChallenge}>🔄 New Challenge</button>
+      <br></br>
+      <div className="JBasics">
+        <h2>Java Basics</h2>
+        <button>Primatives, Loops, Light OOP</button>
+      </div>
     </div>
   );
 }

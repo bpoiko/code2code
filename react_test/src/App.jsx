@@ -6,7 +6,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import JavaPage from './Javapage';
 import CPage from './CPage';
 import PyPage from './PyPage';
-
+import History from './history'; //needs to be History before prod
+import GettingStarted from './GettingStarted';
 function App() {
   const [user, setUser] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
@@ -25,24 +26,34 @@ function App() {
   return (
     <>
       {user ? (
-        <div className="App">
-          <h2 className="welcome-text">Welcome, {user.email} 👋</h2>
+        <div className="dashboard-wrapper">
+          {/* Sidebar */}
+          <aside className="sidebar">
+            <h2>Code2Code</h2>
+            <button onClick={() => navigate('/java')}>Java</button>
+            <button onClick={() => navigate('/cpp')}>C/C++</button>
+            <button onClick={() => navigate('/python')}>Python</button>
+            <button onClick={() => navigate('/history')}>History</button>
+            <button onClick={() => navigate('/getting-started')}>📘 Getting Started</button>
+            <button onClick={logout} className="logout-btn">Logout</button>
+          </aside>
 
-          <div className="dashboard">
-            <div className="button-container">
-              <button onClick={() => navigate('/java')}>Choose Java</button>
-              <button onClick={() => navigate('/cpp')}>Choose C/C++</button>
-              <button onClick={() => navigate('/python')}>Choose Python</button>
+          {/* main content */}
+          <main className="main-content">
+            <header className="dashboard-header">
+              <span className="welcome-text">Welcome, {user.email} 👋</span>
+            </header>
+
+            <div className="challenge-section">
+              <Routes>
+                <Route path="/java" element={<JavaPage />} />
+                <Route path="/cpp" element={<CPage />} />
+                <Route path="/python" element={<PyPage />} />
+                <Route path="/history" element={<History />} />
+                <Route path="/getting-started" element={<GettingStarted />} />
+              </Routes>
             </div>
-
-            <Routes>
-              <Route path="/java" element={<JavaPage />} />
-              <Route path="/cpp" element={<CPage />} />
-              <Route path="/python" element={<PyPage />} />
-            </Routes>
-          </div>
-
-          <button onClick={logout}>Logout</button>
+          </main>
         </div>
       ) : (
         <div className="auth-wrapper">
