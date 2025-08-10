@@ -24,6 +24,9 @@ function App() {
 
   return () => unsubscribe();
 }, []);
+ if(loading){
+    return <LoadingScreen />;
+  }
 
   const logout = () => {
     auth.signOut();
