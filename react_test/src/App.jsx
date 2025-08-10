@@ -3,7 +3,7 @@ import { auth } from './firebase';
 import Login from './Login';
 import Signup from './Signup';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import JavaPage from './Javapage';
+import JavaPage from './JavaPage';
 import CPage from './CPage';
 import PyPage from './PyPage';
 import History from './history'; //needs to be History before prod
