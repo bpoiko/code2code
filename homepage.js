@@ -1,4 +1,8 @@
-var correct = 0;
-var incorrect = 0;
-console.log(correct);
-console.log(incorrect); // gotta start somewhere
+// there likely will be a text animation
+function welcome(){
+    var Evil = new Date();
+   var babble =  document.getElementById("date")
+   babble.textContent = Evil.toLocaleDateString();
+
+}
+welcome();
