@@ -1,12 +1,17 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
+// index.js
+import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import fetch from 'node-fetch'; // trying other way
+dotenv.config();
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.post('/generate', async (req, res) => {
-    console.log('⚡ /generate hit:', req.body); // debugging trying to make sure im actually generating something
+  console.log('⚡ /generate hit:', req.body);
   const { language, difficulty = 'easy' } = req.body;
 
   const prompt = `Generate a ${difficulty}-level coding challenge in ${language}. Only give the problem description.`;
@@ -20,29 +25,24 @@ app.post('/generate', async (req, res) => {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'user',
-            content: prompt
-          }
-        ]
-      })
+        messages: [{ role: 'user', content: prompt }],
+      }),
     });
 
     const data = await response.json();
-    console.log(' 🐐  OpenAI response:', data);
+    console.log('🐐 OpenAI response:', data);
 
     if (data.choices && data.choices.length > 0) {
       res.json({ question: data.choices[0].message.content });
     } else {
       res.status(500).json({ error: 'No response from OpenAI.' });
     }
-} catch (err) {
-  console.error(' 😔 OpenAI error:', err.response?.data || err.message || err);
-  res.status(500).json({ error: 'OpenAI generation failed.' });
-}
+  } catch (err) {
+    console.error('😔 OpenAI error:', err.response?.data || err.message || err);
+    res.status(500).json({ error: 'OpenAI generation failed.' });
+  }
 });
 
 app.listen(3001, () => {
-  console.log('Woohoo Backend running at http://localhost:3001');
+  console.log('🚀 Backend running at http://localhost:3001');
 });
