@@ -22,7 +22,7 @@ const saveChallenge = async (questionText) => {
   const fetchChallenge = async () => {
     setLoading(true);
     try {
-      const res = await fetch('https://code2code.onrender.com/', {
+      const res = await fetch('https://code2code.onrender.com/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'Java', difficulty })
