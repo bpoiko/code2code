@@ -6,7 +6,7 @@ function CPage(){
     const fetchChallenge = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:3001/generate', {
+      const res = await fetch('https://code2code.onrender.com/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'C', difficulty })
