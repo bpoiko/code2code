@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import fetch from 'node-fetch'; // trying other way
-dotenv.config();
+
+dotenv.config()
 
 
 const app = express();
@@ -21,11 +22,13 @@ app.post('/generate', async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${process.env.KEY}`,
+
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'o1-mini',
         messages: [{ role: 'user', content: prompt }],
+        max_completion_tokens: 250,
       }),
     });
 
