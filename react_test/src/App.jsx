@@ -6,10 +6,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import JavaPage from './JavaPage';
 import CPage from './CPage';
 import PyPage from './PyPage';
-import History from './History'; //needs to be History before prod
+import History from './History'; //fixed
 import GettingStarted from './GettingStarted';
 import ProtectedRoute from './ProtectedRoutes';
-import LoadingScreen from './LoadingScreen'; // fix this import later
+import LoadingScreen from './LoadingScreen'; // fixed
 function App() {
   const [user, setUser] = useState(null);
   const [isSignup, setIsSignup] = useState(false);
