@@ -26,7 +26,7 @@ app.post('/generate', async (req, res) => {
 
       },
       body: JSON.stringify({
-        model: 'o1-mini',
+        model: 'gpt-3.5-turbo',
         messages: [{ role: 'user', content: prompt }],
         max_completion_tokens: 250,
       }),
