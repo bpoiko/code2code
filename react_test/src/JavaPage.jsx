@@ -27,7 +27,9 @@ const saveChallenge = async (questionText) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'Java', difficulty })
       });
-
+      if(!res.ok){
+        throw new Error("Backend broken");
+      }
       const data = await res.json();
       if(data.question){
         setQuestion(data.question);
