@@ -56,7 +56,7 @@ const saveChallenge = async (questionText) => {
 
       <div className="difficulty-controls">
         <label>Select Difficulty:</label>
-          <p>Small Disclaimer, these will not work until OpenAI frees up my keys</p>
+          <p>Fixed, thank you so much for the wait</p>
         <select
           value={difficulty}
           onChange={(e) => setDifficulty(e.target.value)}
