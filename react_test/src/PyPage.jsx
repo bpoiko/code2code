@@ -1,22 +1,42 @@
 import { useEffect, useState } from 'react';
-
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 function PyPage(){
     const [question, setQuestion] = useState('');
       const [loading, setLoading] = useState(false);
       const [difficulty, setDifficulty] = useState('easy');
-      const fetchChallenge = async () => {
-    setLoading(true);
+      const saveChallenge = async (questionText) => {
+        try{
+          await addDoc(collection(db,'challenges'),{
+            question: questionText,
+            language: 'Python',
+            difficulty: difficulty,
+            createdAt: serverTimestamp()
+          });
+          console.log('Challenge saved');
+        }catch (err){
+          console.error('Failure nooooo:', err);
+        }
+      };
+    const fetchChallenge = async () => {
+      setLoading(true);
     try {
       const res = await fetch('https://code2code.onrender.com/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'python', difficulty })
       });
-
+      if(!res.ok){
+        throw new Error("Backend broken");
+      }
       const data = await res.json();
-      setQuestion(data.question);
+      if(data.question){
+        setQuestion(data.question);
+        await saveChallenge(data.question);
+      }else{
+        console.log("No question from backend nooo")
+      }
     } catch (err) {
-      setQuestion('❌ Failed to fetch challenge');
       console.error(err);
       setQuestion('❌ Something went wrong!');
     } finally {

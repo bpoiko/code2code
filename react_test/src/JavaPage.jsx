@@ -31,7 +31,7 @@ const saveChallenge = async (questionText) => {
         throw new Error("Backend broken");
       }
       const data = await res.json();
-      console.log("📦 Backend raw response:", JSON.stringify(data, null, 2)); // trying this
+      //out. test fixed
       if(data.question){
         setQuestion(data.question);
         await saveChallenge(data.question);

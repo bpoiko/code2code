@@ -1,8 +1,23 @@
 import { useEffect, useState } from 'react';
+import { db } from './firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 function CPage(){
      const [question, setQuestion] = useState('');
     const [loading, setLoading] = useState(false);
     const [difficulty, setDifficulty] = useState('easy');
+    const saveChallenge = async (questionText) => {
+      try {
+        await addDoc(collection(db, 'challenges'), {
+          question: questionText,
+          language: 'C/C++',
+          difficulty: difficulty,
+          createdAt: serverTimestamp()
+        });
+        console.log('🔥 Challenge saved to Firestore');
+      } catch (err) {
+        console.error('❌ Failed to save to Firestore:', err);
+      }
+    };
     const fetchChallenge = async () => {
     setLoading(true);
     try {
@@ -11,11 +26,18 @@ function CPage(){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'C', difficulty })
       });
-
+      if(!res.ok){
+        throw new Error("Backend broken");
+      }
       const data = await res.json();
-      setQuestion(data.question);
+      
+      if(data.question){
+        setQuestion(data.question);
+        await saveChallenge(data.question);
+      }else{
+        console.log("Error no question from backend");
+      }
     } catch (err) {
-      setQuestion('❌ Failed to fetch challenge');
       console.error(err);
       setQuestion('❌ Something went wrong...');
     } finally {
