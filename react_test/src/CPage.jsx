@@ -13,9 +13,9 @@ function CPage(){
           difficulty: difficulty,
           createdAt: serverTimestamp()
         });
-        console.log('🔥 Challenge saved to Firestore');
+        console.log(' Challenge saved to Firestore');
       } catch (err) {
-        console.error('❌ Failed to save to Firestore:', err);
+        console.error(' Failed to save to Firestore:', err);
       }
     };
     const fetchChallenge = async () => {

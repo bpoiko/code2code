@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/generate', async (req, res) => {
-  console.log('⚡ /generate hit:', req.body);
+  console.log('/generate hit:', req.body);
   const { language, difficulty = 'easy' } = req.body;
 
   const prompt = `Generate a ${difficulty}-level coding challenge in ${language}. Only give the problem description, with brief test cases`;
@@ -33,7 +33,7 @@ app.post('/generate', async (req, res) => {
     });
 
     const data = await response.json();
-    console.log('🐐 OpenAI response:', data);
+    console.log('OpenAI response:', data);
 
     if (data.choices && data.choices.length > 0) {
       res.json({ question: data.choices[0].message.content });
@@ -48,5 +48,5 @@ app.post('/generate', async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Backend running on port ${PORT}`);
+  console.log(`Backend running on port ${PORT}`);
 });
