@@ -5,7 +5,7 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 function History() {
   const [challenges, setChallenges] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  // attempting to fix history page over the next few days.. likely starting jan 2nd-3rd
   useEffect(() => {
     const fetchHistory = async () => {
       setLoading(true);
